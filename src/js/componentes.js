@@ -34,9 +34,7 @@ const contarPendientes = () => {
     let pendient = 0;
     todoList.todos.forEach(elem => {
         if(!elem.completado) pendient ++; 
-        console.log(elem.completado)
     });
-    console.log(pendient)
     $countPendiente.innerHTML  = `<strong>${pendient}</strong> pendiente(s)`;
 }
 
