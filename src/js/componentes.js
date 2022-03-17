@@ -8,7 +8,8 @@ const d = document,
     $txtInput       = d.querySelector('.new-todo'),
     $btnBorrar      = d.querySelector('.clear-completed'),
     $ulfiltros      = d.querySelector('.filters'),
-    $anchorFiltros  = d.querySelectorAll('.filtro');
+    $anchorFiltros  = d.querySelectorAll('.filtro'),
+    $countPendiente = d.querySelector('.todo-count');
 
 export const crearTodoHtml = ( todo ) => {
 
@@ -23,9 +24,20 @@ export const crearTodoHtml = ( todo ) => {
         </li>`;
     const $div = d.createElement('div');
     $div.innerHTML = htmlTodo;
+contarPendientes();
 
     $divTodoList.append( $div.firstElementChild); // pone al div como primer hijo del <li>(abajo de el)</li>
     return $div.firstElementChild;
+}
+
+const contarPendientes = () => {
+    let pendient = 0;
+    todoList.todos.forEach(elem => {
+        if(!elem.completado) pendient ++; 
+        console.log(elem.completado)
+    });
+    console.log(pendient)
+    $countPendiente.innerHTML  = `<strong>${pendient}</strong> pendiente(s)`;
 }
 
 // Eventos
@@ -49,7 +61,7 @@ $divTodoList.addEventListener('click', e => {
 
         todoList.marcarCompletado(todoId);
         $todoElemento.classList.toggle('completed');
-
+        contarPendientes();
     }else if ($nombreElemento.includes('button')) {
         todoList.eliminarTodo(todoId);
         $divTodoList.removeChild( $todoElemento );
@@ -66,6 +78,7 @@ $btnBorrar.addEventListener('click', ()=>{
             $divTodoList.removeChild($elemento);
         }
     }
+    
 });
 
 $ulfiltros.addEventListener('click', e => {
@@ -96,6 +109,5 @@ $ulfiltros.addEventListener('click', e => {
         }
     }
 });
-
 
 

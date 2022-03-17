@@ -46,6 +46,5 @@ export class TodoList {
         // mapear el arreglo  y mutarlos
         this.todos = this.todos.map( Todo.fromJson);
     }
-
 }
 
